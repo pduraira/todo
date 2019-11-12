@@ -1,0 +1,30 @@
+name: Node CI
+
+on:
+  pull_request:
+  push:
+    branches:         # array of glob patterns matching against refs/heads. Optional; defaults to all
+    - master          # triggers on pushes that contain changes in master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1.0.0
+
+    - name: Cache node_modules
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+          
+    - name: Install
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
+
+    - name: Test
+      run: npx jest

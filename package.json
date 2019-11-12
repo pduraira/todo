@@ -1,0 +1,63 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Jason Etcovitch <jasonetco@gmail.com> (https://github.com/jasonetco/todo)",
+  "license": "ISC",
+  "repository": "https://github.com/JasonEtco/todo.git",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "probot run ./index.js",
+    "test": "jest --coverage && standard",
+    "test:update": "jest -u",
+    "doc": "node ./script/generate-docs"
+  },
+  "standard": {
+    "env": {
+      "jest": true
+    }
+  },
+  "bin": {
+    "todo": "./bin/todo.js"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/tests/fixtures/",
+      "<rootDir>/tests/helpers.js",
+      "<rootDir>/tests/setup.js"
+    ],
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/tests/helpers.js",
+      "<rootDir>/tests/setup.js",
+      "/node_modules/"
+    ]
+  },
+  "dependencies": {
+    "@octokit/rest": "^16.16.0",
+    "hbs": "^4.0.6",
+    "joi": "^14.3.0",
+    "parse-diff": "^0.5.1",
+    "probot": "^8.0.2"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "jest": "^24.1.0",
+    "nodemon": "1.18.5",
+    "standard": "^11.0.0"
+  },
+  "engines": {
+    "node": "10.x.x",
+    "npm": "6.x.x"
+  },
+  "nodemonConfig": {
+    "exec": "npm start",
+    "watch": [
+      ".env",
+      "."
+    ]
+  }
+}
